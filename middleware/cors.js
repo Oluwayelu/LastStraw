@@ -1,4 +1,4 @@
-let whitelist = ['http://localhost:8000']
+let whitelist = ['http://localhost:8000', 'https://last-straw.herokuapp.com/']
 var corsOption = {
     origin: (origin, call) => {
         if(!origin) return call(null, true)
