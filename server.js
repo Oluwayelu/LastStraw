@@ -7,6 +7,7 @@ const mongoose = require('mongoose')
 
 const db = require('./config/keys').mongoURI
 const corsOption = require('./middleware/cors')
+const logs = require('./middleware/logs')
 
 const userRoutes = require('./routes/api/Users')
 const cartRoutes = require('./routes/api/Cart')
@@ -42,5 +43,7 @@ app.use('/api/store', storeRoutes)
 app.use('/api/product', productRoutes)
 app.use('/api/review', reviewRoutes)
 app.use('/api/order', orderRoutes)
+
+app.get('/logs', logs.log)
 
 app.listen(port, () => console.log(`Server running on port ${port}`))

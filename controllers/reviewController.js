@@ -11,6 +11,7 @@ exports.createReview = (req, res) => {
             const newReview = new Review(req.body)
             if(newReview.rating > 5 || newReview.rating < 0) return res.status(400).json({ success: false, msg: 'Invalid Rating' })
 
+            newReview.rating =  newReview.rating.toFixed(1)
             newReview.customer = {
                 userId: user._id,
                 firstname: user.firstname,
@@ -82,9 +83,9 @@ exports.deleteReview  = (req, res) => {
     
     User.findOne({ email })
         .then(user => {
-            if(user.userType !== 'Admin') return res.status(400).json({ success: false, msg: 'User is not an admin' })
+            if(!user) return res.status(400).json({ success: false, msg: 'User not found' })
 
-        Review.findOneAndDelete({ _id: id })
+        Review.findByIdAndDelete(id)
             .then(review => {
                 if(!review) return res.status(400).json({ success: false, msg: 'Review does not exist' })
     

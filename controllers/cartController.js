@@ -55,7 +55,7 @@ exports.updateCart = (req, res) => {
     
     User.findOne({ email })
         .then(user => {
-            if(user.userType !== 'Admin') return res.status(400).json({ success: false, msg: 'User is not an admin' })
+            if(user.userType !== 'User') return res.status(400).json({ success: false, msg: 'Admin cannot update cart' })
 
             Cart.findOneAndUpdate(
                 { _id: id }, 
@@ -76,7 +76,7 @@ exports.deleteCart = (req, res) => {
     
     User.findOne({ email })
         .then(user => {
-            if(user.userType !== 'Admin') return res.status(400).json({ success: false, msg: 'User is not an admin' })
+            if(user.userType !== 'User') return res.status(400).json({ success: false, msg: 'Admin cannot delete cart' })
 
             Cart.findOneAndDelete({ _id: id })
             .then(cart => {
