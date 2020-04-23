@@ -25,6 +25,7 @@ app.use(morgan(':method :url :status :response-time ms', {
     stream: fs.createWriteStream(path.join(__dirname, 'logs'))
 }))
 
+app.use(cors(corsOption))
 
 mongoose.connect(db, { 
     useNewUrlParser: true, 
@@ -35,11 +36,11 @@ mongoose.connect(db, {
     console.log('mongoDB connected')
 })
 
-app.use('/api/users', cors(corsOption), userRoutes)
-app.use('/api/cart', cors(corsOption), cartRoutes)
-app.use('/api/store',cors(corsOption), storeRoutes)
-app.use('/api/product', cors(corsOption), productRoutes)
-app.use('/api/review', cors(corsOption), reviewRoutes)
-app.use('/api/order', cors(corsOption), orderRoutes)
+app.use('/api/users', userRoutes)
+app.use('/api/cart', cartRoutes)
+app.use('/api/store', storeRoutes)
+app.use('/api/product', productRoutes)
+app.use('/api/review', reviewRoutes)
+app.use('/api/order', orderRoutes)
 
 app.listen(port, () => console.log(`Server running on port ${port}`))
